@@ -10,6 +10,6 @@ As a learning exercise, I am recreating each data structure. My hope is to bette
 - Graphs
 
 ### Planned Languages:
-1. C# (including LINQ compatibility)
+1. C# (including LINQ compatibility where applicable)
 2. C++
 3. Python
