@@ -1,23 +1,34 @@
 ﻿namespace DataStructures_CSharp.Lists
 {
-    public class ListNode<T> where T : System.IComparable
+    public class ListNode<T> : Node<T> where T : System.IComparable
     {
-        public T Value = default(T);
         public ListNode<T> Next = null;
+        public ListNode<T> Previous = null;
 
         public ListNode()
         {
 
         }
 
-        public ListNode(T value)
+        public ListNode(T value) : base (value)
         {
-            this.Value = value;
         }
 
-        public override string ToString()
+        public void InsertBetween(ListNode<T> previous, ListNode<T> next)
         {
-            return this.Value.ToString();
+            this.Previous = previous;
+            previous.Next = this;
+
+            this.Next = next;
+            next.Previous = this;
+        }
+
+        public new void Remove()
+        {
+            this.Previous.Next = this.Next;
+            this.Next.Previous = this.Previous;
+
+            base.Remove();
         }
     }
 }
