@@ -48,10 +48,13 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Lists\ListNodeTests.cs" />
+    <Compile Include="Lists\LinkedListBase\LinkedListBase_AddTests.cs" />
+    <Compile Include="Lists\LinkedListBase\LinkedListBase_RemoveTests.cs" />
+    <Compile Include="Lists\LinkedListBase\LinkedListBase_OrderingTests.cs" />
+    <Compile Include="Lists\LinkedNodeTests.cs" />
     <Compile Include="DataStructureTestBase.cs" />
-    <Compile Include="Lists\OrderedSingleLinkedListTests.cs" />
-    <Compile Include="Lists\UnorderedSingleLinkedListTests.cs" />
+    <Compile Include="Lists\LinkedListBaseTests.cs" />
+    <Compile Include="Lists\DoubleLinkedNodeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
