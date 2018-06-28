@@ -9,7 +9,7 @@ namespace DataStructures_CSharp.Lists
 
         void Add(T value);
 
-        void AddRange(int startIndex, IEnumerable<T> collection);
+        void AddRange(IEnumerable<T> collection);
 
         void Clear();
 

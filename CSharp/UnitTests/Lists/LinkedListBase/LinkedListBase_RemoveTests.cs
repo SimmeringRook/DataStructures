@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTests.Lists.LinkedListBase
+namespace UnitTests.Lists.LinkedList
 {
     [TestClass]
     public class LinkedListBase_RemoveTests : LinkedListBaseTests_Base
@@ -11,14 +11,14 @@ namespace UnitTests.Lists.LinkedListBase
         {
             this.TestName = "LinkedListBase_RemoveTests_Initialize()";
             this.Log.AppendLine(this.TestName);
-            this.LinkedListBase.AddRange(0, this.Values);
+            this.LinkedListBase.AddRange(this.Values);
             this.PrintList(this.LinkedListBase);
         }
 
         [TestMethod]
-        public void LinkedListBase_RemoveTests_CorrectlyRemoves_Value()
+        public void LinkedListBase_Removes_Value_Successfully()
         {
-            this.TestName = "LinkedListBase_RemoveTests_CorrectlyRemoves_Value()";
+            this.TestName = "LinkedListBase_Removes_Value_Successfully()";
             this.Log.AppendLine(this.TestName);
 
             //Arrange
@@ -38,9 +38,9 @@ namespace UnitTests.Lists.LinkedListBase
         }
 
         [TestMethod]
-        public void LinkedListBase_RemoveTests_CorrectlyRemovesAt_Index()
+        public void LinkedListBase_Removes_ValueAtIndex_Successfully()
         {
-            this.TestName = "LinkedListBase_RemoveTests_CorrectlyRemovesAt_Index()";
+            this.TestName = "LinkedListBase_Removes_ValueAtIndex_Successfully()";
             this.Log.AppendLine(this.TestName);
 
             //Arrange
@@ -58,9 +58,9 @@ namespace UnitTests.Lists.LinkedListBase
         }
 
         [TestMethod]
-        public void LinkedListBase_RemoveTests_CorrectlyRemoves_Collection()
+        public void LinkedListBase_Removes_Range_Successfully()
         {
-            this.TestName = "LinkedListBase_RemoveTests_CorrectlyRemoves_Collection()";
+            this.TestName = "LinkedListBase_Removes_Range_Successfully()";
             this.Log.AppendLine(this.TestName);
 
             //Arrange
@@ -78,9 +78,9 @@ namespace UnitTests.Lists.LinkedListBase
         }
 
         [TestMethod]
-        public void LinkedListBase_RemoveTests_Correctly_Clear()
+        public void LinkedListBase_Clears_Successfully()
         {
-            this.TestName = "LinkedListBase_RemoveTests_Correctly_Clear()";
+            this.TestName = "LinkedListBase_Clears_Successfully()";
             this.Log.AppendLine(this.TestName);
 
             //Arrange

@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace UnitTests.Lists
 {
     [TestClass]
-    public class DoubleLinkedNodeTests : LinkedNodeTests
+    public class DoubleLinkedNodeTests : DataStructureTestBase
     {
         protected DoubleLinkedNode<string> NodeA;
         protected DoubleLinkedNode<string> NodeB;
@@ -28,12 +28,13 @@ namespace UnitTests.Lists
             this.NodeA = new DoubleLinkedNode<string>(this.ValueA);
             this.NodeB = new DoubleLinkedNode<string>(this.ValueB);
             this.NodeC = new DoubleLinkedNode<string>(this.ValueC);
+            this.Log.AppendLine("");
         }
 
         [TestCleanup]
         public void DoubleLinkedNodeTests_CleanUp()
         {
-            this.TestName = "LinkedNodeTests_CleanUp()";
+            this.TestName = "\nDoubleLinkedNodeTests_CleanUp()";
             this.Log.AppendLine(this.TestName);
 
             this.ValueA = null;
@@ -46,9 +47,9 @@ namespace UnitTests.Lists
         }
 
         [TestMethod]
-        public void DoubleLinkedNodeTests_Correctly_InsertsBetween()
+        public void DoubleLinkedNode_InsertsBetween_Successfully()
         {
-            this.TestName = "DoubleLinkedNodeTests_Correctly_InsertsBetween()";
+            this.TestName = "DoubleLinkedNode_InsertsBetween_Successfully()";
             this.Log.AppendLine(this.TestName);
 
             //Arrange
@@ -69,6 +70,29 @@ namespace UnitTests.Lists
 
             Assert.AreEqual(NodeC, NodeB.Next);
             Assert.AreEqual(NodeC.Previous, NodeB);
+        }
+
+        [TestMethod]
+        public void DoubleLinkedNode_Connects_Successfully()
+        {
+            this.TestName = "DoubleLinkedNode_Connects_Successfully()";
+            this.Log.AppendLine(this.TestName);
+
+            //Arrange
+            
+
+            //Act
+            this.Log.AppendLine("Connecting 'NodeA' to 'NodeB'");
+            this.NodeA.ConnectTo(this.NodeB);
+
+            //Assert
+            this.Log.Append("Previous: ");
+            this.Log.AppendLine("Expected: " + NodeA.Value + " | Actual: " + NodeB.Previous.Value);
+            this.Log.Append("Next: ");
+            this.Log.AppendLine("Expected: " + NodeB.Value + " | Actual: " + NodeA.Next.Value);
+
+            Assert.AreEqual(NodeA, NodeB.Previous);
+            Assert.AreEqual(NodeA.Next, NodeB);
         }
     }
 }

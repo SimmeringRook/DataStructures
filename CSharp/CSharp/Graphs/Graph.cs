@@ -9,7 +9,7 @@ namespace DataStructures_CSharp.Graphs
 {
     public class Graph<T> where T : IComparable
     {
-        public UnorderedSingleLinkedList<GraphNode<T>> Nodes = new UnorderedSingleLinkedList<GraphNode<T>>();
+        public LinkedListBase<GraphNode<T>> Nodes = new LinkedListBase<GraphNode<T>>();
 
         public Graph()
         {
@@ -40,6 +40,6 @@ namespace DataStructures_CSharp.Graphs
 
     public class Path<T> where T : IComparable
     {
-        public UnorderedSingleLinkedList<GraphNode<T>> Nodes = new UnorderedSingleLinkedList<GraphNode<T>>();
+        public LinkedListBase<GraphNode<T>> Nodes = new LinkedListBase<GraphNode<T>>();
     }
 }

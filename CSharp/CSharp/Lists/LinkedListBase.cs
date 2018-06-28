@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DataStructures_CSharp.Lists
 {
     public class LinkedListBase<T> : ILinkedList<T> where T : IComparable
     {
-        protected IComparer<T> Comparer;
+        public IComparer<T> Comparer;
+        
         protected LinkedNode<T> currentEnumeratorNode = null;
         protected bool enumerationStarted = false;
 
@@ -28,9 +28,9 @@ namespace DataStructures_CSharp.Lists
             this.Comparer = Comparer<T>.Default;
         }
 
-        public LinkedListBase(IEnumerable<T> collection)
+        public LinkedListBase(IEnumerable<T> collection) : this()
         {
-            this.AddRange(0, collection);
+            this.AddRange(collection);
         }
 
         public LinkedListBase(IComparer<T> comparer)
@@ -41,12 +41,12 @@ namespace DataStructures_CSharp.Lists
         public LinkedListBase(IEnumerable<T> collection, IComparer<T> comparer)
         {
             this.Comparer = comparer;
-            this.AddRange(0, collection);
+            this.AddRange(collection);
         }
 
         /// <summary>
-        /// Gets the value at the specified index.
-        /// Expected Runtime: O(n), where n is the size of the list.
+        /// <para>Gets the value at the specified index.</para>
+        /// <para>Expected Runtime: O(n), where n is the size of the list.</para>
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -107,12 +107,23 @@ namespace DataStructures_CSharp.Lists
         object IEnumerator.Current => this.Current;
 
         /// <summary>
-        /// Adds the given value to the end of the list.
-        /// Expected Runtime: O(1)
+        /// <para>Adds the given value to the end of the list.</para>
+        /// <para>Expected Runtime: O(1)</para>
         /// </summary>
         /// <param name="value"></param>
         public void Add(T value)
         {
+            if (this.Count() > 0)
+            {
+                if (this.cachedMinimum != null && this.Comparer.Compare(value, this.cachedMinimum.Value) == -1)
+                {
+                    this.isCachedMinimumValid = false;
+                }
+                if (this.cachedMaximum != null && this.Comparer.Compare(value, this.cachedMaximum.Value) == 1)
+                {
+                    this.isCachedMaximumValid = false;
+                }
+            }
             this.isCachedCountValid = false;
 
             if (this.headNodeOfList == null)
@@ -132,14 +143,7 @@ namespace DataStructures_CSharp.Lists
                 this.tailNodeOfList = this.tailNodeOfList.Next;
             }
 
-            if (value.CompareTo(this.GetMinimum()) == -1)
-            {
-                this.isCachedMinimumValid = false;
-            }
-            if (value.CompareTo(this.GetMaximum()) == 1)
-            {
-                this.isCachedMaximumValid = false;
-            }
+            
 
             //WARNING!
             //Do not comment this out. This list is built with the assumption
@@ -148,33 +152,29 @@ namespace DataStructures_CSharp.Lists
         }
 
         /// <summary>
-        /// Adds the collection at startIndex.
-        /// Expected Runtime: O(kn) where k = collection.Count() and n = startIndex
+        /// <para>Adds the collection to the list.</para>
+        /// <para>Expected Runtime: O(n) where n = length of the collection</para>
         /// </summary>
         /// <param name="startIndex"></param>
         /// <param name="collection"></param>
-        public void AddRange(int startIndex, IEnumerable<T> collection)
+        public void AddRange(IEnumerable<T> collection)
         {
             using(IEnumerator<T> enumerator = collection.GetEnumerator())
             {
-                for (int i = startIndex; i < startIndex + collection.Count(); i++)
+                while (enumerator.MoveNext())
                 {
-                    enumerator.MoveNext();
-                    this.Insert(i, enumerator.Current);
+                    this.Add(enumerator.Current);
                 }
-
-                if (this.tailNodeOfList == null)
-                    this.tailNodeOfList = this.GetNodeAt(this.Count()-1);
             }
         }
 
         /// <summary>
-        /// Removes all elements from the list.
-        /// Expected Runtime: O(n), where n = the size of the list.
+        /// <para>Removes all elements from the list.</para>
+        /// <para>Expected Runtime: O(n), where n = the size of the list.</para>
         /// </summary>
         public void Clear()
         {
-            if (this.isCachedCountValid == true && this.cachedCount == 0)
+            if (this.Count() == 0)
                 return;
 
             LinkedNode<T> currentNode = this.headNodeOfList;
@@ -192,16 +192,12 @@ namespace DataStructures_CSharp.Lists
             this.tailNodeOfList = null;
             nextNode = null;
 
-            this.isCachedCountValid = false;
-            this.isCachedMinimumValid = false;
-            this.cachedMinimum = null;
-            this.isCachedMaximumValid = false;
-            this.cachedMaximum = null;
+            this.InvalidateAllCaches();
         }
 
         /// <summary>
-        /// Returns whether or not the provided value exists in the list.
-        /// Expected Runtime: O(n), where n = the size of the list.
+        /// <para>Returns whether or not the provided value exists in the list.</para>
+        /// <para>Expected Runtime: O(n), where n = the size of the list.</para>
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -211,9 +207,19 @@ namespace DataStructures_CSharp.Lists
         }
 
         /// <summary>
-        /// Returns the size of the list.
-        /// Expected Runtime: O(n), where n = the size of the list.
-        /// Best case: O(1) if no changes have been made to the list since the previous call.
+        /// <para>Creates a copy of the list.</para>
+        /// <para>Expected Runtime: O(n), where n = the size of the list.</para>
+        /// </summary>
+        /// <returns></returns>
+        public LinkedListBase<T> Copy()
+        {
+            return new LinkedListBase<T>(this as IEnumerable<T>, this.Comparer);
+        }
+
+        /// <summary>
+        /// <para>Returns the size of the list.</para>
+        /// <para>Expected Runtime: O(n), where n = the size of the list.</para>
+        /// <para>Best case: O(1) if no changes have been made to the list since the previous call.</para>
         /// </summary>
         /// <returns></returns>
         public int Count()
@@ -244,8 +250,8 @@ namespace DataStructures_CSharp.Lists
         }
 
         /// <summary>
-        /// Disposes of all elements in the list and itself.
-        /// Use of the object after calling Dispose will lead to incorrect and unstable behaviour.
+        /// <para>Disposes of all elements in the list and itself.</para>
+        /// <para>Use of the object after calling Dispose will lead to incorrect and unstable behaviour.</para>
         /// </summary>
         public void Dispose()
         {
@@ -267,13 +273,21 @@ namespace DataStructures_CSharp.Lists
         }
 
         /// <summary>
-        /// Gets the node for the given index. Expected runtime: O(n), where
-        /// n = index
+        /// <para>Gets the node for the given index.</para>
+        /// <para>Expected runtime: O(n), where n = index</para>
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
         protected LinkedNode<T> GetNodeAt(int index)
         {
+            if (index < 0 || index > this.Count())
+            {
+                string exceptionMessage = (index < 0) ? " less than 0." : " greater than the size of the list.";
+                throw new IndexOutOfRangeException(
+                    "The provided index (" + index.ToString() + ") was invalid. index cannot be" + exceptionMessage
+                    );
+            }
+
             LinkedNode<T> node = this.headNodeOfList;
             for (int i = 0; i < index; i++)
             {
@@ -284,8 +298,8 @@ namespace DataStructures_CSharp.Lists
         }
 
         /// <summary>
-        /// Returns the index of the given value, if it exists in the list. (-1 if it does not).
-        /// Expected Runtime: O(n), where n is the position of the value in the list.
+        /// <para>Returns the index of the given value, if it exists in the list. (-1 if it does not).</para>
+        /// <para>Expected Runtime: O(n), where n is the position of the value in the list.</para>
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -295,9 +309,9 @@ namespace DataStructures_CSharp.Lists
         }
 
         /// <summary>
-        /// Inserts the given value at the given index.
-        /// Expected Runtime: O(n), where n is the index.
-        /// Best case: 0(1) for inserting at the head or tail.
+        /// <para>Inserts the given value at the given index.</para>
+        /// <para>Expected Runtime: O(n), where n is the index.</para>
+        /// <para>Best case: 0(1) for inserting at the head or tail.</para>
         /// </summary>
         /// <param name="index"></param>
         /// <param name="value"></param>
@@ -343,13 +357,31 @@ namespace DataStructures_CSharp.Lists
         }
 
         /// <summary>
-        /// Gets the Maximum value using the current given <see cref="IComparer{T}"/>.
-        /// Expected Runtime: O(n), where n is the number of elements in the list.
-        /// Best Runtime: O(1), if no changes have been made to the list.
+        /// <para>Sets all cached values to null and all booleans related 
+        /// to count, min and max to false.</para>
+        /// </summary>
+        protected void InvalidateAllCaches()
+        {
+            this.isCachedMinimumValid = false;
+            this.cachedMinimum = null;
+
+            this.isCachedMaximumValid = false;
+            this.cachedMaximum = null;
+
+            this.isCachedCountValid = false;
+        }
+
+        /// <summary>
+        /// <para>Gets the Maximum value using the current given <see cref="IComparer{T}"/>.</para>
+        /// <para>Expected Runtime: O(n), where n is the number of elements in the list.</para>
+        /// <para>Best Runtime: O(1), if no changes have been made to the list.</para>
         /// </summary>
         /// <returns></returns>
         public T GetMaximum()
         {
+            if (this.Count() == 0)
+                throw new InvalidOperationException("Tried to find a maximum value in an empty list.");
+
             if (isCachedMaximumValid == false)
             {
                 LinkedNode<T> max = this.headNodeOfList;
@@ -375,13 +407,16 @@ namespace DataStructures_CSharp.Lists
         }
 
         /// <summary>
-        /// Gets the Minimum value using the current given <see cref="IComparer{T}"/>.
-        /// Expected Runtime: O(n), where n is the number of elements in the list.
-        /// Best Runtime: O(1), if no changes have been made to the list.
+        /// <para>Gets the Minimum value using the current given <see cref="IComparer{T}"/>.</para>
+        /// <para>Expected Runtime: O(n), where n is the number of elements in the list.</para>
+        /// <para>Best Runtime: O(1), if no changes have been made to the list.</para>
         /// </summary>
         /// <returns></returns>
         public T GetMinimum()
         {
+            if (this.Count() == 0)
+                throw new InvalidOperationException("Tried to find a minimum value in an empty list.");
+
             if (isCachedMinimumValid == false)
             {
                 LinkedNode<T> min = this.headNodeOfList;
@@ -426,8 +461,8 @@ namespace DataStructures_CSharp.Lists
         }
 
         /// <summary>
-        /// Removes the given value from the list.
-        /// Expected Runtime: O(n), where n is the number of elements in the list.
+        /// <para>Removes the given value from the list.</para>
+        /// <para>Expected Runtime: O(n), where n is the number of elements in the list.</para>
         /// </summary>
         /// <param name="value"></param>
         public void Remove(T value)
@@ -445,7 +480,7 @@ namespace DataStructures_CSharp.Lists
                     return;
             }
 
-            //Handle special cases
+            //Handle cases
             if (currentNode.Equals(this.headNodeOfList))
             {
                 this.headNodeOfList = this.headNodeOfList.Next;
@@ -454,6 +489,10 @@ namespace DataStructures_CSharp.Lists
             {
                 this.tailNodeOfList = previousNode;
                 this.tailNodeOfList.Next = null;
+            }
+            else
+            {
+                previousNode.Next = currentNode.Next;
             }
 
             //Invalidate all of the caches
@@ -472,54 +511,50 @@ namespace DataStructures_CSharp.Lists
         }
 
         /// <summary>
-        /// Removes the element at the given index.
-        /// Expected runtime: O(n), where n is the index
+        /// <para>Removes the element at the given index.</para>
+        /// <para>Expected runtime: O(n), where n is the index</para>
+        /// <para>Best Case: O(1), if removing the first or last value</para>
         /// </summary>
         /// <param name="index"></param>
         public void RemoveAt(int index)
         {
             //There is nothing to remove, exit
-            if (this.isCachedCountValid == true && this.cachedCount == 0)
+            if (this.Count() == 0)
+            {
                 return;
-
-            LinkedNode<T> previousNode = this.headNodeOfList;
-            LinkedNode<T> currentNode = this.headNodeOfList;
-
-            //Find the node at the index
-            for (int i = 0; i < index; i++)
-            {
-                previousNode = currentNode;
-                currentNode = currentNode.Next;
             }
-
-            //If we're removing the min or max of the list, invalidate the cache
-            if (currentNode.Value.Equals(this.GetMinimum()))
+            else if (this.Count() == 1)
             {
-                this.isCachedMinimumValid = false;
-            }
-            if (currentNode.Value.Equals(this.GetMaximum()))
-            {
-                this.isCachedMaximumValid = false;
-            }
-
-
-            if (index == 0)
-            {
-                if (this.Count() == 1)
-                {
-                    this.headNodeOfList = null;
-                    this.tailNodeOfList = null;
-                }
-                else
-                {
-                    LinkedNode<T> temp = this.headNodeOfList;
-                    this.headNodeOfList = this.headNodeOfList.Next;
-                    temp.Remove();
-                }
+                this.Clear();
             }
             else
             {
-                if (currentNode == this.tailNodeOfList)
+                int previousNodeIndex = (index > 0) ? index - 1 : 0;
+                LinkedNode<T> previousNode = this.GetNodeAt(previousNodeIndex); //this.headNodeOfList;
+                LinkedNode<T> currentNode = this.GetNodeAt(index); //this.headNodeOfList;
+
+                //Find the node at the index
+                //for (int i = 0; i < index; i++)
+                //{
+                //    previousNode = currentNode;
+                //    currentNode = currentNode.Next;
+                //}
+
+                //If we're removing the min or max of the list, invalidate the cache
+                if (currentNode.Value.Equals(this.GetMinimum()))
+                {
+                    this.isCachedMinimumValid = false;
+                }
+                if (currentNode.Value.Equals(this.GetMaximum()))
+                {
+                    this.isCachedMaximumValid = false;
+                }
+
+                if (index == 0)
+                {
+                    this.headNodeOfList = this.headNodeOfList.Next;
+                }
+                else if (index == this.Count() - 1)
                 {
                     this.tailNodeOfList = previousNode;
                     this.tailNodeOfList.Next = null;
@@ -527,19 +562,17 @@ namespace DataStructures_CSharp.Lists
                 else
                 {
                     previousNode.Next = currentNode.Next;
-                    currentNode.Remove();
                 }
+                currentNode.Remove();
+                previousNode = null;
             }
-
-            previousNode = null;
-            currentNode = null;
 
             this.isCachedCountValid = false;
         }
 
         /// <summary>
-        /// Removes the range of elements starting at the startIndex and going until startIndex + length.
-        /// Expected Runtime: O(kn), where k = length, n = startIndex
+        /// <para>Removes the range of elements starting at the startIndex and going until startIndex + length.</para>
+        /// <para>Expected Runtime: O(kn), where k = length, n = startIndex</para>
         /// </summary>
         /// <param name="startIndex"></param>
         /// <param name="length"></param>
@@ -558,18 +591,19 @@ namespace DataStructures_CSharp.Lists
         }
 
         /// <summary>
-        /// Reverses the order of the list.
-        /// Expected Runtime: O(n), where n is the number of elements in the list
+        /// <para>Reverses the order of the list.</para>
+        /// <para>Expected Runtime: O(n), where n is the number of elements in the list</para>
         /// </summary>
         public void Reverse()
         {
+            
             LinkedNode<T> newHeadOfList = new LinkedNode<T>(this.tailNodeOfList.Value);
             LinkedNode<T> newTailOfList = newHeadOfList;
             LinkedNode<T> newNode = null;
 
             //Walk over the list backwards
             //this.Count() - 1 - 1; is because -1 to account for:
-            //being off by one (zero indexed vs 1 indexed)
+            //being off by one (zero index)
             //and -1 because we already have the tail
             for (int i = this.Count() - 2; i >= 0; i--)
             {
@@ -581,14 +615,16 @@ namespace DataStructures_CSharp.Lists
             }
 
             //Finish Overwritting of the old list
+            //Remove the old list and clear the caches
             this.Clear();
+
             this.headNodeOfList = newHeadOfList;
             this.tailNodeOfList = newTailOfList;
         }
 
         /// <summary>
-        /// Sorts the list based on <see cref="Comparer"/>. 
-        /// Expected runtime: O(n^2), where n is the number of elements in the list.
+        /// <para>Sorts the list based on <see cref="Comparer"/>. </para>
+        /// <para>Expected runtime: O(n^2), where n is the number of elements in the list.</para>
         /// </summary>
         /// TODO: Allow for different sorting methods that use this.Comparer
         public void Sort()

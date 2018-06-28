@@ -14,7 +14,9 @@
 
         public void InsertBetween(LinkedNode<T> previous, LinkedNode<T> next)
         {
-            previous.Next = this;
+            if (previous != null)
+                previous.Next = this;
+
             this.Next = next;
         }
 

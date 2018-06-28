@@ -48,13 +48,18 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lists\DoubleLinkedList\DoubleLinkedListTests_AddTests.cs" />
+    <Compile Include="Lists\DoubleLinkedList\DoubleLinkedList_OrderingTests.cs" />
+    <Compile Include="Lists\DoubleLinkedList\DoubleLinkedListBase_RemoveTests.cs" />
     <Compile Include="Lists\LinkedListBase\LinkedListBase_AddTests.cs" />
     <Compile Include="Lists\LinkedListBase\LinkedListBase_RemoveTests.cs" />
     <Compile Include="Lists\LinkedListBase\LinkedListBase_OrderingTests.cs" />
+    <Compile Include="Lists\DoubleLinkedList\DoubleLinkedListTests.cs" />
     <Compile Include="Lists\LinkedNodeTests.cs" />
     <Compile Include="DataStructureTestBase.cs" />
     <Compile Include="Lists\LinkedListBaseTests.cs" />
     <Compile Include="Lists\DoubleLinkedNodeTests.cs" />
+    <Compile Include="Lists\SortedLinkedList\SortedLinkedListTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -65,6 +70,9 @@
       <Project>{5C76286C-571B-4493-9E46-2DFB49F29457}</Project>
       <Name>DataStructures_CSharp</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Lists\SortedDoubleLinkedList\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

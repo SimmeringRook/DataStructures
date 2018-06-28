@@ -1,16 +1,15 @@
-﻿using System;
+﻿using DataStructures_CSharp.Lists;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTests.Lists.LinkedListBase
+namespace UnitTests.Lists.LinkedList
 {
     [TestClass]
     public class LinkedListBase_AddTests : LinkedListBaseTests_Base
     {
-
         [TestMethod]
-        public void LinkedListBase_AddTests_CorrectlyAdds_TwoValues()
+        public void LinkedListBase_Adds_TwoValues_Successfully()
         {
-            this.TestName = "LinkedListBase_AddTests_CorrectlyAdds_TwoValues()";
+            this.TestName = "LinkedListBase_Adds_TwoValues_Successfully()";
             this.Log.AppendLine(this.TestName);
             
             //Arrange
@@ -25,9 +24,9 @@ namespace UnitTests.Lists.LinkedListBase
         }
 
         [TestMethod]
-        public void LinkedListBase_AddTests_CorrectlyAdds_ThreeValues()
+        public void LinkedListBase_Adds_ThreeValues_Successfully()
         {
-            this.TestName = "LinkedListBase_AddTests_CorrectlyAdds_ThreeValues()";
+            this.TestName = "LinkedListBase_Adds_ThreeValues_Successfully()";
             this.Log.AppendLine(this.TestName);
             
             //Arrange
@@ -45,16 +44,16 @@ namespace UnitTests.Lists.LinkedListBase
         }
 
         [TestMethod]
-        public void LinkedListBase_AddTests_CorrectlyAdds_Collection()
+        public void LinkedListBase_Adds_Collection_Successfully()
         {
-            this.TestName = "LinkedListBase_AddTests_CorrectlyAdds_Collection()";
+            this.TestName = "LinkedListBase_Adds_Collection_Successfully()";
             this.Log.AppendLine(this.TestName);
 
             //Arrange
             this.PrintList(this.LinkedListBase);
 
             //Act
-            this.LinkedListBase.AddRange(0, this.Values);
+            this.LinkedListBase.AddRange(this.Values);
             this.PrintList(this.LinkedListBase);
 
             //Assert
@@ -62,6 +61,28 @@ namespace UnitTests.Lists.LinkedListBase
             for (int i = 0; i < this.LinkedListBase.Count(); i++)
             {
                 Assert.AreEqual(this.Values[i], this.LinkedListBase[i]);
+            }
+        }
+
+        [TestMethod]
+        public void LinkedListBase_Copies_Successfully()
+        {
+            this.TestName = "LinkedListBase_Copies_Successfully()";
+            this.Log.AppendLine(this.TestName);
+
+            //Arrange
+            this.LinkedListBase.AddRange(this.Values);
+            this.PrintList(this.LinkedListBase);
+
+            //Act
+            LinkedListBase<string> copyOfList = this.LinkedListBase.Copy();
+            this.PrintList(copyOfList);
+
+            //Assert
+            Assert.AreEqual(this.Values.Length, copyOfList.Count());
+            for (int i = 0; i < this.LinkedListBase.Count(); i++)
+            {
+                Assert.AreEqual(this.LinkedListBase[i], copyOfList[i]);
             }
         }
     }

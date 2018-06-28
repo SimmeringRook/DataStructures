@@ -47,9 +47,7 @@
     <Compile Include="Lists\LinkedListBase.cs" />
     <Compile Include="Lists\LinkedNode.cs" />
     <Compile Include="Lists\DoubleLinkedNode.cs" />
-    <Compile Include="Lists\OrderedSingleLinkedList.cs" />
-    <Compile Include="Lists\SingleLinkedList.cs" />
-    <Compile Include="Lists\UnorderedSingleLinkedList.cs" />
+    <Compile Include="Lists\SortedLinkedList.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

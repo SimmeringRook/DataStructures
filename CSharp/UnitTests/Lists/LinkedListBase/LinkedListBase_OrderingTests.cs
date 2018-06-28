@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTests.Lists.LinkedListBase
+namespace UnitTests.Lists.LinkedList
 {
     [TestClass]
     public class LinkedListBase_OrderingTests : LinkedListBaseTests_Base
@@ -11,13 +11,16 @@ namespace UnitTests.Lists.LinkedListBase
         {
             this.TestName = "LinkedListBase_OrderingTests_Initialize()";
             this.Log.AppendLine(this.TestName);
-            this.LinkedListBase.AddRange(0, this.Values);
+            this.LinkedListBase.AddRange(this.Values);
             this.PrintList(this.LinkedListBase);
         }
 
         [TestMethod]
-        public void LinkedListBaseTests_CorrectlyUpdates_MinAndMax()
+        public void LinkedListBase_Updates_MinAndMax_Successfully()
         {
+            this.TestName = "LinkedListBase_Updates_MinAndMax_Successfully()";
+            this.Log.AppendLine(this.TestName);
+
             //Arrange
             this.LinkedListBase.Clear();
             Assert.AreEqual(0, this.LinkedListBase.Count());
@@ -40,9 +43,9 @@ namespace UnitTests.Lists.LinkedListBase
         }
 
         [TestMethod]
-        public void LinkedListBaseTests_Correctly_Reverses()
+        public void LinkedListBase_Reverses_Successfully()
         {
-            this.TestName = "LinkedListBaseTests_Correctly_Reverses()";
+            this.TestName = "LinkedListBase_Reverses_Successfully()";
             this.Log.AppendLine(this.TestName);
 
             //Arrange
@@ -60,9 +63,9 @@ namespace UnitTests.Lists.LinkedListBase
         }
 
         [TestMethod]
-        public void LinkedListBaseTests_Correctly_Sorts()
+        public void LinkedListBase_Sorts_ByDefaultComparer_Successfully()
         {
-            this.TestName = "LinkedListBaseTests_Correctly_Sorts()";
+            this.TestName = "LinkedListBase_Sorts_ByDefaultComparer_Successfully()";
             this.Log.AppendLine(this.TestName);
 
             //Arrange
