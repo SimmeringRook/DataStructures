@@ -55,12 +55,13 @@
     <Compile Include="Lists\LinkedListBase\LinkedListBase_RemoveTests.cs" />
     <Compile Include="Lists\LinkedListBase\LinkedListBase_OrderingTests.cs" />
     <Compile Include="Lists\DoubleLinkedList\DoubleLinkedListTests.cs" />
-    <Compile Include="Lists\LinkedNodeTests.cs" />
+    <Compile Include="Nodes\LinkedNodeTests.cs" />
     <Compile Include="DataStructureTestBase.cs" />
     <Compile Include="Lists\LinkedListBaseTests.cs" />
-    <Compile Include="Lists\DoubleLinkedNodeTests.cs" />
+    <Compile Include="Nodes\DoubleLinkedNodeTests.cs" />
     <Compile Include="Lists\SortedLinkedList\SortedLinkedListTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stacks\StackTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

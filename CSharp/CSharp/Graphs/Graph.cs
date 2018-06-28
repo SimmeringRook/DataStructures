@@ -1,4 +1,5 @@
 ﻿using DataStructures_CSharp.Lists;
+using DataStructures_CSharp.Nodes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace DataStructures_CSharp.Graphs
 
         public Path<T> GetPath(GraphNode<T> source, GraphNode<T> destination)
         {
-            foreach (GraphNode<T> neighbor in source.Neighbors.Keys)
+            foreach (GraphNode<T> neighbor in source.NeighborsWithWeightedConnections.Keys)
             {
 
             }

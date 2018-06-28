@@ -41,19 +41,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Graphs\Graph.cs" />
-    <Compile Include="Graphs\GraphNode.cs" />
+    <Compile Include="Nodes\GraphNode.cs" />
     <Compile Include="Lists\DoubleLinkedList.cs" />
     <Compile Include="Lists\ILinkedList.cs" />
     <Compile Include="Lists\LinkedListBase.cs" />
-    <Compile Include="Lists\LinkedNode.cs" />
-    <Compile Include="Lists\DoubleLinkedNode.cs" />
+    <Compile Include="Nodes\LinkedNode.cs" />
+    <Compile Include="Nodes\DoubleLinkedNode.cs" />
     <Compile Include="Lists\SortedLinkedList.cs" />
-    <Compile Include="Node.cs" />
+    <Compile Include="Nodes\MultiLinkedNode.cs" />
+    <Compile Include="Nodes\Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stacks\Stack.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Queues\" />
-    <Folder Include="Stacks\" />
     <Folder Include="Trees\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

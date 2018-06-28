@@ -1,4 +1,4 @@
-﻿namespace DataStructures_CSharp.Lists
+﻿namespace DataStructures_CSharp.Nodes
 {
     public class LinkedNode<T> : Node<T> where T : System.IComparable
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataStructures_CSharp
+namespace DataStructures_CSharp.Nodes
 {
     public class Node<T> : IDisposable where T : System.IComparable
     {

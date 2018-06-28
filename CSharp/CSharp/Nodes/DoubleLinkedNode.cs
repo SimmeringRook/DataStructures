@@ -1,4 +1,4 @@
-﻿namespace DataStructures_CSharp.Lists
+﻿namespace DataStructures_CSharp.Nodes
 {
     public class DoubleLinkedNode<T> : LinkedNode<T> where T : System.IComparable
     {

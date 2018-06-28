@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataStructures_CSharp.Nodes;
+using System;
 using System.Collections.Generic;
 
 namespace DataStructures_CSharp.Lists

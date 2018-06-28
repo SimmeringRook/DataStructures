@@ -1,4 +1,4 @@
-﻿using DataStructures_CSharp.Lists;
+﻿using DataStructures_CSharp.Nodes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests.Lists
