@@ -1,5 +1,8 @@
 #include "Double_Linked_Node.h"
-namespace CPlusPlus
+
+DATA_STRUCTURES_CPP_BEGIN
+
+namespace Nodes
 {
 	template <typename T>
 	Double_Linked_Node<T>::Double_Linked_Node(T* value) : Linked_Node(value)
@@ -60,3 +63,5 @@ namespace CPlusPlus
 		}
 	};
 }
+
+DATA_STRUCTURES_CPP_END

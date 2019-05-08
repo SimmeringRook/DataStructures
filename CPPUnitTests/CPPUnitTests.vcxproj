@@ -163,6 +163,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CPPUnitTests.cpp" />
+    <ClCompile Include="LinkedList_Tests.cpp" />
     <ClCompile Include="Linked_Node_Tests.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -172,6 +173,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\CPlusPlus\Data_Structures.h" />
+    <ClInclude Include="LinkedList_Tests.h" />
     <ClInclude Include="Linked_Node_Tests.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>

@@ -130,6 +130,7 @@
     <ClCompile Include="node.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Data_Structures.h" />
     <ClInclude Include="Double_Linked_Node.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Linked_Node.h" />

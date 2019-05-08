@@ -9,7 +9,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-using namespace CPlusPlus;
+using namespace DataStructures::CPlusPlus::Nodes;
 using namespace std;
 
 namespace CPPUnitTests
@@ -23,7 +23,7 @@ namespace CPPUnitTests
 			Linked_Node<int> node = Linked_Node<int>();
 
 			Assert::IsNull(node.value_ptr);
-			Assert::IsNull(node.get_next());
+			Assert::IsNull(node.next_ptr);
 		}
 
 		TEST_METHOD(LinkedNode_Assigns_Value_Successfully)
@@ -35,7 +35,7 @@ namespace CPPUnitTests
 
 			//Act
 			by_ptr.value_ptr = &value_to_assign;
-			by_constructor = Linked_Node<int>(&value_to_assign);
+			by_constructor = Linked_Node<int>(value_to_assign);
 
 			//Assert
 			Assert::AreEqual(value_to_assign, *by_ptr.value_ptr);
@@ -48,15 +48,15 @@ namespace CPPUnitTests
 			string a = "A";
 			string b = "B";
 
-			Linked_Node<string> node_a = Linked_Node<string>(&a);
-			Linked_Node<string> node_b = Linked_Node<string>(&b);
+			Linked_Node<string> node_a = Linked_Node<string>(a);
+			Linked_Node<string> node_b = Linked_Node<string>(b);
 
 			//Act
 			node_b.insert(&node_a, NULL);
 
 			//Assert
-			Assert::IsNotNull(node_a.get_next());
-			Assert::IsTrue(&node_b == node_a.get_next());
+			Assert::IsNotNull(node_a.next_ptr);
+			Assert::IsTrue(&node_b == node_a.next_ptr);
 		}
 
 		TEST_METHOD(LinkedNode_InsertsBetween_Successfully)
@@ -66,9 +66,9 @@ namespace CPPUnitTests
 			string b = "B";
 			string c = "C";
 
-			Linked_Node<string> node_a = Linked_Node<string>(&a);
-			Linked_Node<string> node_b = Linked_Node<string>(&b);
-			Linked_Node<string> node_c = Linked_Node<string>(&c);
+			Linked_Node<string> node_a = Linked_Node<string>(a);
+			Linked_Node<string> node_b = Linked_Node<string>(b);
+			Linked_Node<string> node_c = Linked_Node<string>(c);
 
 			node_c.insert(&node_a, NULL);
 
@@ -76,8 +76,8 @@ namespace CPPUnitTests
 			node_b.insert(&node_a, &node_c);
 
 			//Assert
-			Assert::IsFalse(&node_c == node_a.get_next());
-			Assert::IsTrue(&node_b == node_a.get_next());
+			Assert::IsFalse(&node_c == node_a.next_ptr);
+			Assert::IsTrue(&node_b == node_a.next_ptr);
 		}
 	};
 }

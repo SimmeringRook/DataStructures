@@ -2,23 +2,35 @@
 #define LINKED_NODE_H
 
 #include "node.h"
-namespace CPlusPlus
+
+#include "Data_Structures.h"
+
+DATA_STRUCTURES_CPP_BEGIN
+
+namespace Nodes
 {
 	template <class T>
 	class Linked_Node :
 		public Node<T>
 	{
-	protected:
-		Linked_Node<T>* next_node_ptr;
-
 	public:
 		Linked_Node<T>();
-		Linked_Node<T>(T*);
+		Linked_Node<T>(T);
+
+		Linked_Node<T>(const Linked_Node<T>&);
+
+		Linked_Node<T>& operator=(Linked_Node<T>);
+
 		~Linked_Node<T>();
 
-		virtual Linked_Node<T>* get_next();
+		Linked_Node<T>* next_ptr;
+
+		//virtual Linked_Node<T>* get_next();
 		virtual void insert(Linked_Node<T>*, Linked_Node<T>*);
 		virtual void disconnect();
 	};
 }
-#endif
+
+DATA_STRUCTURES_CPP_END
+
+#endif //!LINKED_NODE_H

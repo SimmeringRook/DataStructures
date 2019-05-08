@@ -2,7 +2,11 @@
 #define DOUBLE_LINKED_NODE_H
 
 #include "Linked_Node.h"
-namespace CPlusPlus
+#include "Data_Structures.h"
+
+DATA_STRUCTURES_CPP_BEGIN
+
+namespace Nodes
 {
 	template <class T>
 	class Double_Linked_Node :
@@ -21,4 +25,7 @@ namespace CPlusPlus
 		virtual void disconnect();
 	};
 }
-#endif
+
+DATA_STRUCTURES_CPP_END
+
+#endif //!DOUBLE_LINKED_NODE_H

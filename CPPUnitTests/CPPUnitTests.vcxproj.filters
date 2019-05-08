@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Lists">
       <UniqueIdentifier>{5102de9d-9f3a-43ce-adc4-d96db8f2096a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Nodes">
+      <UniqueIdentifier>{2d5e79aa-5c97-4fc5-b7b8-882c3dc91913}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Lists">
+      <UniqueIdentifier>{16ebcb83-9e56-4b27-b112-269e9aeb1831}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CPPUnitTests.cpp">
@@ -28,7 +34,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Linked_Node_Tests.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="LinkedList_Tests.cpp">
+      <Filter>Source Files\Lists</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -36,7 +45,13 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Linked_Node_Tests.h">
+      <Filter>Header Files\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CPlusPlus\Data_Structures.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedList_Tests.h">
+      <Filter>Header Files\Lists</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
